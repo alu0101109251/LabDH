@@ -1,23 +1,22 @@
 package top;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import es.ull.esit.utilities.ExpositoUtilities;
 
 public class TOPTW {
     private int nodes;
-    private double[] x;
-    private double[] y;
-    private double[] score;
-    private double[] readyTime;
-    private double[] dueTime;
-    private double[] serviceTime;
-    private int vehicles;
+    private final double[] x;
+    private final double[] y;
+    private final double[] score;
+    private final double[] readyTime;
+    private final double[] dueTime;
+    private final double[] serviceTime;
+    private final int vehicles;
     private int depots;
     private double maxTimePerRoute;
     private double maxRoutes;
-    private double[][] distanceMatrix;
+    private final double[][] distanceMatrix;
 
     public TOPTW(int nodes, int routes) {
         this.nodes = nodes;
@@ -39,41 +38,10 @@ public class TOPTW {
     }
     
     public boolean isDepot(int a) {
-        if(a > this.nodes) {
-            return true;
-        }
-        return false;
+        return a > this.nodes;
     }
 
-    public double getDistance(int[] route) {
-        double distance = 0.0;
-        for (int i = 0; i < route.length - 1; i++) {
-            int node1 = route[i];
-            int node2 = route[i + 1];
-            distance += this.getDistance(node1, node2);
-        }
-        return distance;
-    }
 
-    public double getDistance(ArrayList<Integer> route) {
-        double distance = 0.0;
-        for (int i = 0; i < route.size() - 1; i++) {
-            int node1 = route.get(i);
-            int node2 = route.get(i + 1);
-            distance += this.getDistance(node1, node2);
-        }
-        return distance;
-    }
-
-    public double getDistance(ArrayList<Integer>[] routes) {
-        double distance = 0.0;
-        for (ArrayList<Integer> route : routes) {
-            distance += this.getDistance(route);
-        }
-        return distance;
-    }
-
-    
     public void calculateDistanceMatrix() {
         for (int i = 0; i < this.nodes + 1; i++) {
             for (int j = 0; j < this.nodes + 1; j++) {
@@ -194,11 +162,11 @@ public class TOPTW {
     @Override
     public String toString() {
         final int COLUMN_WIDTH = 15;
-        String text = "Nodes: " + this.nodes + "\n";
+        StringBuilder text = new StringBuilder("Nodes: " + this.nodes + "\n");
         String[] strings = new String[]{"CUST NO.", "XCOORD.", "YCOORD.", "SCORE", "READY TIME", "DUE DATE", "SERVICE TIME"};
         int[] width = new int[strings.length];
         Arrays.fill(width, COLUMN_WIDTH);
-        text += ExpositoUtilities.getFormat(strings, width) + "\n";
+        text.append(ExpositoUtilities.getFormat(strings, width)).append("\n");
         for (int i = 0; i < this.nodes; i++) {
             strings = new String[strings.length];
             int index = 0;
@@ -210,15 +178,15 @@ public class TOPTW {
             strings[index++] = "" + this.readyTime[i];
             strings[index++] = "" + this.dueTime[i];
             strings[index++] = "" + this.serviceTime[i];
-            text += ExpositoUtilities.getFormat(strings, width);
-            text += "\n";
+            text.append(ExpositoUtilities.getFormat(strings, width));
+            text.append("\n");
         }
-        text += "Vehicles: " + this.vehicles + "\n";
+        text.append("Vehicles: ").append(this.vehicles).append("\n");
         strings = new String[]{"VEHICLE", "CAPACITY"};
         width = new int[strings.length];
         Arrays.fill(width, COLUMN_WIDTH);
-        text += ExpositoUtilities.getFormat(strings, width) + "\n";
-        return text;
+        text.append(ExpositoUtilities.getFormat(strings, width)).append("\n");
+        return text.toString();
     }
 
     public int addNode() {

@@ -17,19 +17,19 @@ public class mainTOPTW {
         
         instances[21] = "rc101.txt"; instances[24] = "rc104.txt"; instances[27] = "rc107.txt";
         instances[22] = "rc102.txt"; instances[25] = "rc105.txt"; instances[28] = "rc108.txt";
-        instances[23] = "rc103.txt"; instances[26] = "rc106.txt"; 
-        
-        for(int i = 0; i < instances.length; i++) {
-            String INSTANCE = "Instances/TOPTW/"+instances[i];
+        instances[23] = "rc103.txt"; instances[26] = "rc106.txt";
+
+        for (String instance : instances) {
+            String INSTANCE = "Instances/TOPTW/" + instance;
             TOPTW problem = TOPTWReader.readProblem(INSTANCE);
             TOPTWSolution solution = new TOPTWSolution(problem);
             TOPTWGRASP grasp = new TOPTWGRASP(solution);
 
-            System.out.println(" --> Instance: "+instances[i]);
+            System.out.println(" --> Instance: " + instance);
             grasp.GRASP(10000, 3);
             grasp.GRASP(10000, 5);
             grasp.GRASP(10000, 7);
-            System.out.println("");
+            System.out.println();
         }
     }
     

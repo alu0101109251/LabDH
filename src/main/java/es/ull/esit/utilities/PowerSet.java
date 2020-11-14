@@ -8,8 +8,8 @@ import java.util.TreeSet;
 // Sirve para calcular todos los subconjuntos de un conjunto dado
 public class PowerSet<E> implements Iterator<Set<E>>, Iterable<Set<E>> {
 
-    private E[] arr = null;
-    private BitSet bset = null;
+    private final E[] arr;
+    private final BitSet bset;
 
     @SuppressWarnings("unchecked")
     public PowerSet(Set<E> set) {

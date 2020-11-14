@@ -1,9 +1,7 @@
 package es.ull.esit.utilities;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -20,20 +18,11 @@ public class ExpositoUtilities {
     public static final int ALIGNMENT_LEFT = 1;
     public static final int ALIGNMENT_RIGHT = 2;
 
-    private static int getFirstAppearance(int[] vector, int element) {
-        for (int i = 0; i < vector.length; i++) {
-            if (vector[i] == element) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public static void printFile(String file) {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(file));
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
@@ -41,6 +30,7 @@ public class ExpositoUtilities {
             Logger.getLogger(ExpositoUtilities.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
+                assert reader != null;
                 reader.close();
             } catch (IOException ex) {
                 Logger.getLogger(ExpositoUtilities.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +57,7 @@ public class ExpositoUtilities {
         int n = a[0].length;
         int m = a.length;
         int p = b[0].length;
-        double ans[][] = new double[m][p];
+        double[][] ans = new double[m][p];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < p; j++) {
                 for (int k = 0; k < n; k++) {
@@ -76,13 +66,6 @@ public class ExpositoUtilities {
             }
         }
         return ans;
-    }
-
-    public static void writeTextToFile(String file, String text) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        writer.write(text);
-        writer.flush();
-        writer.close();
     }
 
     public static String getFormat(String string) {
@@ -104,11 +87,11 @@ public class ExpositoUtilities {
     }
 
     public static String getFormat(double value, int zeros) {
-        String format = "0.";
+        StringBuilder format = new StringBuilder("0.");
         for (int i = 0; i < zeros; i++) {
-            format += "0";
+            format.append("0");
         }
-        DecimalFormat decimalFormatter = new DecimalFormat(format);
+        DecimalFormat decimalFormatter = new DecimalFormat(format.toString());
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
         decimalFormatter.setDecimalFormatSymbols(symbols);
@@ -120,7 +103,7 @@ public class ExpositoUtilities {
     }
 
     public static String getFormat(String string, int width, int alignment) {
-        String format = "";
+        String format;
         if (alignment == ExpositoUtilities.ALIGNMENT_LEFT) {
             format = "%-" + width + "s";
         } else {
@@ -133,27 +116,27 @@ public class ExpositoUtilities {
     }
 
     public static String getFormat(ArrayList<String> strings, int width) {
-        String format = "";
+        StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
-            format += "%" + (i + 1) + "$" + width + "s";
+            format.append("%").append(i + 1).append("$").append(width).append("s");
         }
         String[] data = new String[strings.size()];
         for (int t = 0; t < strings.size(); t++) {
             data[t] = "" + ExpositoUtilities.getFormat(strings.get(t));
         }
-        return String.format(format, (Object[]) data);
+        return String.format(format.toString(), (Object[]) data);
     }
 
     public static String getFormat(ArrayList<Integer> strings) {
-        String format = "";
+        StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
-            format += "%" + (i + 1) + "$" + DEFAULT_COLUMN_WIDTH + "s";
+            format.append("%").append(i + 1).append("$").append(DEFAULT_COLUMN_WIDTH).append("s");
         }
         Integer[] data = new Integer[strings.size()];
         for (int t = 0; t < strings.size(); t++) {
             data[t] = strings.get(t);
         }
-        return String.format(format, (Object[]) data);
+        return String.format(format.toString(), (Object[]) data);
     }
 
     public static String getFormat(String[] strings, int width) {
@@ -165,19 +148,19 @@ public class ExpositoUtilities {
     }
     
         public static String getFormat(String[][] matrixStrings, int width) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < matrixStrings.length; i++) {
             String[] strings = matrixStrings[i];
             int[] alignment = new int[strings.length];
             Arrays.fill(alignment, ExpositoUtilities.ALIGNMENT_RIGHT);
             int[] widths = new int[strings.length];
             Arrays.fill(widths, width);
-            result += ExpositoUtilities.getFormat(strings, widths, alignment);
+            result.append(ExpositoUtilities.getFormat(strings, widths, alignment));
             if (i < (matrixStrings.length - 1)) {
-                result += "\n";
+                result.append("\n");
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static String getFormat(String[] strings) {
@@ -195,26 +178,26 @@ public class ExpositoUtilities {
     }
 
     public static String getFormat(String[] strings, int[] width, int[] alignment) {
-        String format = "";
+        StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.length; i++) {
             if (alignment[i] == ExpositoUtilities.ALIGNMENT_LEFT) {
-                format += "%" + (i + 1) + "$-" + width[i] + "s";
+                format.append("%").append(i + 1).append("$-").append(width[i]).append("s");
             } else {
-                format += "%" + (i + 1) + "$" + width[i] + "s";
+                format.append("%").append(i + 1).append("$").append(width[i]).append("s");
             }
         }
         String[] data = new String[strings.length];
         for (int t = 0; t < strings.length; t++) {
             data[t] = "" + ExpositoUtilities.getFormat(strings[t]);
         }
-        return String.format(format, (Object[]) data);
+        return String.format(format.toString(), (Object[]) data);
     }
 
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -223,7 +206,7 @@ public class ExpositoUtilities {
         try {
             Double.parseDouble(str);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return false;
     }

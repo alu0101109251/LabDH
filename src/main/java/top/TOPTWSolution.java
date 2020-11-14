@@ -6,11 +6,11 @@ import es.ull.esit.utilities.ExpositoUtilities;
 
 public class TOPTWSolution {
     public static final int NO_INITIALIZED = -1;
-    private TOPTW problem;
+    private final TOPTW problem;
     private int[] predecessors;
     private int[] successors;
-    private double[] waitingTime;
-    private int[] positionInRoute;
+    private final double[] waitingTime;
+    private final int[] positionInRoute;
     
     private int[] routes;
     private int availableVehicles;
@@ -45,8 +45,8 @@ public class TOPTWSolution {
     }
     
     public boolean isDepot(int c) {
-        for(int i = 0; i < this.routes.length; i++) {
-            if(c==this.routes[i]) {
+        for (int route : this.routes) {
+            if (c == route) {
                 return true;
             }
         }
@@ -136,44 +136,36 @@ public class TOPTWSolution {
     
     public String getInfoSolution() {
         final int COLUMN_WIDTH = 15;
-        String text = "\n"+"NODES: " + this.problem.getPOIs() + "\n" + "MAX TIME PER ROUTE: " + this.problem.getMaxTimePerRoute() + "\n" + "MAX NUMBER OF ROUTES: " + this.problem.getMaxRoutes() + "\n";
-        String textSolution = "\n"+"SOLUTION: "+"\n";
+        StringBuilder text = new StringBuilder("\n" + "NODES: " + this.problem.getPOIs() + "\n" + "MAX TIME PER ROUTE: " + this.problem.getMaxTimePerRoute() + "\n" + "MAX NUMBER OF ROUTES: " + this.problem.getMaxRoutes() + "\n");
+        StringBuilder textSolution = new StringBuilder("\n" + "SOLUTION: " + "\n");
         double costTimeSolution = 0.0, fitnessScore = 0.0;
         boolean validSolution = true;
         for(int k = 0; k < this.getCreatedRoutes(); k++) { // rutas creadas
             String[] strings = new String[]{"\n" + "ROUTE " + k };
             int[] width = new int[strings.length];
             Arrays.fill(width, COLUMN_WIDTH);
-            text += ExpositoUtilities.getFormat(strings, width) + "\n";
+            text.append(ExpositoUtilities.getFormat(strings, width)).append("\n");
             strings = new String[]{"CUST NO.", "X COORD.", "Y. COORD.", "READY TIME", "DUE DATE", "ARRIVE TIME", " LEAVE TIME", "SERVICE TIME"};
             width = new int[strings.length];
             Arrays.fill(width, COLUMN_WIDTH);
-            text += ExpositoUtilities.getFormat(strings, width) + "\n";
+            text.append(ExpositoUtilities.getFormat(strings, width)).append("\n");
             strings = new String[strings.length];
             int depot = this.getIndexRoute(k);
             int pre=-1, suc=-1;
             double costTimeRoute = 0.0, fitnessScoreRoute = 0.0;
             pre = depot;
             int index = 0;
-            strings[index++] = "" + pre;
-            strings[index++] = "" + this.getProblem().getX(pre);
-            strings[index++] = "" + this.getProblem().getY(pre);
-            strings[index++] = "" + this.getProblem().getReadyTime(pre);
-            strings[index++] = "" + this.getProblem().getDueTime(pre);
+            index = getIndex(strings, pre, index);
             strings[index++] = "" + 0;
             strings[index++] = "" + 0;
             strings[index++] = "" + this.getProblem().getServiceTime(pre);
-            text += ExpositoUtilities.getFormat(strings, width);
-            text += "\n";
+            text.append(ExpositoUtilities.getFormat(strings, width));
+            text.append("\n");
             do {                // recorremos la ruta
                 index = 0;
                 suc = this.getSuccessor(pre);
-                textSolution += pre+" - ";
-                strings[index++] = "" + suc;
-                strings[index++] = "" + this.getProblem().getX(suc);
-                strings[index++] = "" + this.getProblem().getY(suc);
-                strings[index++] = "" + this.getProblem().getReadyTime(suc);
-                strings[index++] = "" + this.getProblem().getDueTime(suc);
+                textSolution.append(pre).append(" - ");
+                index = getIndex(strings, suc, index);
                 costTimeRoute += this.getDistance(pre, suc);
                 if(costTimeRoute < (this.getProblem().getDueTime(suc))) {
                     if(costTimeRoute < this.getProblem().getReadyTime(suc)) {
@@ -187,17 +179,26 @@ public class TOPTWSolution {
                     fitnessScoreRoute += this.problem.getScore(suc);
                 } else { validSolution = false; }                  
                 pre = suc;
-                text += ExpositoUtilities.getFormat(strings, width);
-                text += "\n";
+                text.append(ExpositoUtilities.getFormat(strings, width));
+                text.append("\n");
             } while(suc != depot);
-            textSolution += suc+"\n";
+            textSolution.append(suc).append("\n");
             costTimeSolution += costTimeRoute;
             fitnessScore += fitnessScoreRoute;
         }
-        textSolution += "FEASIBLE SOLUTION: "+validSolution+"\n"+"SCORE: "+fitnessScore+"\n"+"TIME COST: "+costTimeSolution+"\n";
-        return textSolution+text;
+        textSolution.append("FEASIBLE SOLUTION: ").append(validSolution).append("\n").append("SCORE: ").append(fitnessScore).append("\n").append("TIME COST: ").append(costTimeSolution).append("\n");
+        return textSolution.toString() +text;
     }
-    
+
+    private int getIndex(String[] strings, int suc, int index) {
+        strings[index++] = "" + suc;
+        strings[index++] = "" + this.getProblem().getX(suc);
+        strings[index++] = "" + this.getProblem().getY(suc);
+        strings[index++] = "" + this.getProblem().getReadyTime(suc);
+        strings[index++] = "" + this.getProblem().getDueTime(suc);
+        return index;
+    }
+
     public double evaluateFitness() {
         double objectiveFunction = 0.0;
         double objectiveFunctionPerRoute = 0.0;

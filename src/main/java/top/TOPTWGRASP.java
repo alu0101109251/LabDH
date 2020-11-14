@@ -70,9 +70,7 @@ public class TOPTWGRASP {
     public int aleatorySelectionRCL(int maxTRCL) {
        Random r = new Random();
        int low = 0;
-       int high = maxTRCL;
-       int posSelected = r.nextInt(high-low) + low;
-       return posSelected;
+        return r.nextInt(maxTRCL -low) + low;
     }
     
     public int fuzzySelectionBestFDRCL(ArrayList< double[] > rcl) {
@@ -234,76 +232,90 @@ public class TOPTWGRASP {
         infoCandidate[2] = -1;
         infoCandidate[3] = Double.MAX_VALUE;
         infoCandidate[4] = -1;
-        
-        for(int c = 0; c < customers.size(); c++) { // clientes disponibles
-            for(int k = 0; k < this.solution.getCreatedRoutes(); k++) { // rutas creadas
+
+        for (Integer customer : customers) { // clientes disponibles
+            for (int k = 0; k < this.solution.getCreatedRoutes(); k++) { // rutas creadas
                 validFinalInsertion = true;
                 int depot = this.solution.getIndexRoute(k);
-                int pre=-1, suc=-1;
+                int pre = -1, suc = -1;
                 double costInsertion = 0;
                 pre = depot;
-                int candidate = customers.get(c);
+                int candidate = customer;
                 do {                                                // recorremos la ruta
                     validFinalInsertion = true;
                     suc = this.solution.getSuccessor(pre);
                     double timesUntilPre = departureTimes.get(k).get(pre) + this.solution.getDistance(pre, candidate);
-                    if(timesUntilPre < (this.solution.getProblem().getDueTime(candidate))) {
+                    if (timesUntilPre < (this.solution.getProblem().getDueTime(candidate))) {
                         double costCand = 0;
-                        if(timesUntilPre < this.solution.getProblem().getReadyTime(candidate)) {
-                            costCand = this.solution.getProblem().getReadyTime(candidate);
-                        } else { costCand = timesUntilPre; }
-                        costCand +=  this.solution.getProblem().getServiceTime(candidate);
-                        if(costCand > this.solution.getProblem().getMaxTimePerRoute()) { validFinalInsertion = false; }
-                        
+                        costCand = Math.max(timesUntilPre, this.solution.getProblem().getReadyTime(candidate));
+                        costCand += this.solution.getProblem().getServiceTime(candidate);
+                        if (costCand > this.solution.getProblem().getMaxTimePerRoute()) {
+                            validFinalInsertion = false;
+                        }
+
                         // Comprobar TW desde candidate hasta sucesor
                         double timesUntilSuc = costCand + this.solution.getDistance(candidate, suc);
-                        if(timesUntilSuc < (this.solution.getProblem().getDueTime(suc))) {                                
+                        if (timesUntilSuc < (this.solution.getProblem().getDueTime(suc))) {
                             double costSuc = 0;
-                            if(timesUntilSuc < this.solution.getProblem().getReadyTime(suc)) {
-                                costSuc = this.solution.getProblem().getReadyTime(suc);
-                            } else { costSuc = timesUntilSuc; }
-                            costSuc +=  this.solution.getProblem().getServiceTime(suc);
-                            costInsertion = costSuc;                            
-                            if(costSuc > this.solution.getProblem().getMaxTimePerRoute()) { validFinalInsertion = false;}
+                            costSuc = Math.max(timesUntilSuc, this.solution.getProblem().getReadyTime(suc));
+                            costSuc += this.solution.getProblem().getServiceTime(suc);
+                            costInsertion = costSuc;
+                            if (costSuc > this.solution.getProblem().getMaxTimePerRoute()) {
+                                validFinalInsertion = false;
+                            }
 
-                            int pre2=suc, suc2 = -1;
-                            if(suc != depot)
+                            int pre2 = suc, suc2 = -1;
+                            if (suc != depot)
                                 do {
                                     suc2 = this.solution.getSuccessor(pre2);
                                     double timesUntilSuc2 = costInsertion + this.solution.getDistance(pre2, suc2);
-                                    if(timesUntilSuc2 < (this.solution.getProblem().getDueTime(suc2))) {
-                                        if(timesUntilSuc2 < this.solution.getProblem().getReadyTime(suc2)) {
-                                            costInsertion = this.solution.getProblem().getReadyTime(suc2);
-                                        } else { costInsertion = timesUntilSuc2; }
+                                    if (timesUntilSuc2 < (this.solution.getProblem().getDueTime(suc2))) {
+                                        costInsertion = Math.max(timesUntilSuc2, this.solution.getProblem().getReadyTime(suc2));
                                         costInsertion += this.solution.getProblem().getServiceTime(suc2);
-                                        if(costInsertion > this.solution.getProblem().getMaxTimePerRoute()) { validFinalInsertion = false; }
-                                    } else { validFinalInsertion = false; }         
+                                        if (costInsertion > this.solution.getProblem().getMaxTimePerRoute()) {
+                                            validFinalInsertion = false;
+                                        }
+                                    } else {
+                                        validFinalInsertion = false;
+                                    }
                                     pre2 = suc2;
-                                } while((suc2 != depot) && validFinalInsertion);
-                        } else { validFinalInsertion = false; }
-                    } else { validFinalInsertion = false; }
+                                } while ((suc2 != depot) && validFinalInsertion);
+                        } else {
+                            validFinalInsertion = false;
+                        }
+                    } else {
+                        validFinalInsertion = false;
+                    }
 
-                    if(validFinalInsertion==true) { // cliente, ruta, predecesor, coste
-                        if(costInsertion < infoCandidate[3]) {
-                            infoCandidate[0] = candidate; infoCandidate[1] = k; infoCandidate[2] = pre; infoCandidate[3] = costInsertion; infoCandidate[4] = this.solution.getProblem().getScore(candidate); // cliente, ruta, predecesor, coste, score
+                    if (validFinalInsertion) { // cliente, ruta, predecesor, coste
+                        if (costInsertion < infoCandidate[3]) {
+                            infoCandidate[0] = candidate;
+                            infoCandidate[1] = k;
+                            infoCandidate[2] = pre;
+                            infoCandidate[3] = costInsertion;
+                            infoCandidate[4] = this.solution.getProblem().getScore(candidate); // cliente, ruta, predecesor, coste, score
                         }
                     }
-                    
+
                     pre = suc;
-                } while(suc != depot);
+                } while (suc != depot);
             } //rutas creadas
-            
+
             // almacenamos en la lista de candidatos la mejor posición de inserción para el cliente
-            if(infoCandidate[0]!=-1 && infoCandidate[1]!=-1 && infoCandidate[2]!=-1 && infoCandidate[3] != Double.MAX_VALUE && infoCandidate[4]!=-1) {
+            if (infoCandidate[0] != -1 && infoCandidate[1] != -1 && infoCandidate[2] != -1 && infoCandidate[3] != Double.MAX_VALUE && infoCandidate[4] != -1) {
                 double[] infoCandidate2 = new double[5];
-                infoCandidate2[0] = infoCandidate[0];  infoCandidate2[1] = infoCandidate[1];  
-                infoCandidate2[2] = infoCandidate[2];  infoCandidate2[3] = infoCandidate[3];
+                infoCandidate2[0] = infoCandidate[0];
+                infoCandidate2[1] = infoCandidate[1];
+                infoCandidate2[2] = infoCandidate[2];
+                infoCandidate2[3] = infoCandidate[3];
                 infoCandidate2[4] = infoCandidate[4];
                 candidatesList.add(infoCandidate2);
             }
             validFinalInsertion = true;
-            infoCandidate[0] = -1;  infoCandidate[1] = -1;
-            infoCandidate[2] = -1;  infoCandidate[3] = Double.MAX_VALUE;
+            infoCandidate[0] = -1;
+            infoCandidate[1] = -1;
+            infoCandidate[2] = -1;
+            infoCandidate[3] = Double.MAX_VALUE;
             infoCandidate[4] = -1;
         } // cliente
 
