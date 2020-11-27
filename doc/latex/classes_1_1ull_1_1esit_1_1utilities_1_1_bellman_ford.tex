@@ -2,6 +2,11 @@
 \label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford}\index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 
 
+Implementation of \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford}{Bellman\+Ford}} algorithm.  
+
+
+
+
 Collaboration diagram for es.\+ull.\+esit.\+utilities.\+Bellman\+Ford\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -13,18 +18,18 @@ Collaboration diagram for es.\+ull.\+esit.\+utilities.\+Bellman\+Ford\+:\nopageb
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a3d5fd98d4098ebe439fd5ad9f79602ea}{Bellman\+Ford}} (int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a4eaf966cc12c1c16dcdf691280478567}{distance\+Matrix}}, int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a7be2cec2c770bde817180d5778652437}{nodes}}, Array\+List$<$ Integer $>$ \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_af0b7be2386c60a310fbcdbb818631169}{path}})
-\item 
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
 int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ac83194e1edd56e60d77420a1d7e6bd80}{get\+Distances}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter for distances array. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a4bad6103ccc407601545e7b8efa924ab}{get\+Value}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter for path cost. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a250f4ed361209a7bed3bdc12010b3d3c}{solve}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Method for solving the stored problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_aaaf03effb2c4624d80992a72d0d43229}{calculate\+Edges}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Auxiliary method to calculate edges. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -49,6 +54,11 @@ static final int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellma
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford}{Bellman\+Ford}} algorithm. 
+
+This class implements the Bellmand\+Ford search algorithm using integer distances 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a3d5fd98d4098ebe439fd5ad9f79602ea}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a3d5fd98d4098ebe439fd5ad9f79602ea}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!BellmanFord@{BellmanFord}}
@@ -57,12 +67,16 @@ static final int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellma
 {\footnotesize\ttfamily es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+Bellman\+Ford (\begin{DoxyParamCaption}\item[{int}]{distance\+Matrix\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{nodes,  }\item[{Array\+List$<$ Integer $>$}]{path }\end{DoxyParamCaption})}
 
 
+
+Class constructor. 
+
+
 \begin{DoxyParams}{Parameters}
-{\em distance\+Matrix} & \\
+{\em distance\+Matrix} & -\/$>$ Matrix to store distances \\
 \hline
-{\em nodes} & \\
+{\em nodes} & -\/$>$ number of nodes \\
 \hline
-{\em path} & \\
+{\em path} & -\/$>$ final path \\
 \hline
 \end{DoxyParams}
 
@@ -74,14 +88,22 @@ static final int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellma
 \doxysubsubsection{\texorpdfstring{calculateEdges()}{calculateEdges()}}
 {\footnotesize\ttfamily void es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+calculate\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Auxiliary method to calculate edges. 
+
 \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ac83194e1edd56e60d77420a1d7e6bd80}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ac83194e1edd56e60d77420a1d7e6bd80}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!getDistances@{getDistances}}
 \index{getDistances@{getDistances}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{getDistances()}{getDistances()}}
 {\footnotesize\ttfamily int \mbox{[}$\,$\mbox{]} es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+get\+Distances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
 
+
+Getter for distances array. 
+
+\begin{DoxyReturn}{Returns}
+int\mbox{[}\mbox{]} -\/$>$ unidimensional array of distances 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a4bad6103ccc407601545e7b8efa924ab}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a4bad6103ccc407601545e7b8efa924ab}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!getValue@{getValue}}
@@ -89,14 +111,22 @@ static final int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellma
 \doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
 {\footnotesize\ttfamily int es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
 
+
+Getter for path cost. 
+
+\begin{DoxyReturn}{Returns}
+int -\/$>$ Cost of the optimal path found 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a250f4ed361209a7bed3bdc12010b3d3c}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a250f4ed361209a7bed3bdc12010b3d3c}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!solve@{solve}}
 \index{solve@{solve}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
 {\footnotesize\ttfamily void es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for solving the stored problem. 
 
 
 
@@ -107,49 +137,49 @@ static final int \mbox{\hyperlink{classes_1_1ull_1_1esit_1_1utilities_1_1_bellma
 \doxysubsubsection{\texorpdfstring{distanceMatrix}{distanceMatrix}}
 {\footnotesize\ttfamily final int \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+distance\+Matrix\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ab96fe181bcec95782e242a9280ef50f4}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ab96fe181bcec95782e242a9280ef50f4}} 
+Matrix to store distances. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ab96fe181bcec95782e242a9280ef50f4}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_ab96fe181bcec95782e242a9280ef50f4}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!distances@{distances}}
 \index{distances@{distances}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{distances}{distances}}
 {\footnotesize\ttfamily int \mbox{[}$\,$\mbox{]} es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+distances = null\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a04d0eef7e9fb4d077334529944cf6d9e}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a04d0eef7e9fb4d077334529944cf6d9e}} 
+Auxiliary distance array. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a04d0eef7e9fb4d077334529944cf6d9e}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a04d0eef7e9fb4d077334529944cf6d9e}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!edges1@{edges1}}
 \index{edges1@{edges1}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{edges1}{edges1}}
 {\footnotesize\ttfamily Array\+List$<$Integer$>$ es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+edges1 = null\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73a3486a2c45ce2caed86b54da594dec}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73a3486a2c45ce2caed86b54da594dec}} 
+Right to left edges. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73a3486a2c45ce2caed86b54da594dec}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73a3486a2c45ce2caed86b54da594dec}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!edges2@{edges2}}
 \index{edges2@{edges2}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{edges2}{edges2}}
 {\footnotesize\ttfamily Array\+List$<$Integer$>$ es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+edges2 = null\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73d9608d894f7492e6de6bdb126badef}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73d9608d894f7492e6de6bdb126badef}} 
+Left to right edges. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73d9608d894f7492e6de6bdb126badef}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a73d9608d894f7492e6de6bdb126badef}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!INFINITY@{INFINITY}}
 \index{INFINITY@{INFINITY}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{INFINITY}{INFINITY}}
 {\footnotesize\ttfamily final int es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+I\+N\+F\+I\+N\+I\+TY = 999999\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a7be2cec2c770bde817180d5778652437}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a7be2cec2c770bde817180d5778652437}} 
+Infinity constant. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a7be2cec2c770bde817180d5778652437}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a7be2cec2c770bde817180d5778652437}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!nodes@{nodes}}
 \index{nodes@{nodes}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{nodes}{nodes}}
 {\footnotesize\ttfamily final int es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+nodes\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_af0b7be2386c60a310fbcdbb818631169}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_af0b7be2386c60a310fbcdbb818631169}} 
+Number of nodes. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_af0b7be2386c60a310fbcdbb818631169}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_af0b7be2386c60a310fbcdbb818631169}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!path@{path}}
 \index{path@{path}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{path}{path}}
 {\footnotesize\ttfamily final Array\+List$<$Integer$>$ es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+path\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a51f98a942ea045962b2296a1d4ea4b53}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a51f98a942ea045962b2296a1d4ea4b53}} 
+Final path. \mbox{\Hypertarget{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a51f98a942ea045962b2296a1d4ea4b53}\label{classes_1_1ull_1_1esit_1_1utilities_1_1_bellman_ford_a51f98a942ea045962b2296a1d4ea4b53}} 
 \index{es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}!value@{value}}
 \index{value@{value}!es.ull.esit.utilities.BellmanFord@{es.ull.esit.utilities.BellmanFord}}
 \doxysubsubsection{\texorpdfstring{value}{value}}
 {\footnotesize\ttfamily int es.\+ull.\+esit.\+utilities.\+Bellman\+Ford.\+value\hspace{0.3cm}{\ttfamily [private]}}
 
-
+Path cost. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

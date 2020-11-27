@@ -12,12 +12,25 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @class ExpositoUtilities
+ * @brief Different auxiliary utilities to be used along the project
+ *
+ * @details This class implements a number of methods which will be used in the project.
+ * It will be used as a library.
+ *
+ */
 public class ExpositoUtilities {
 
-    public static final int DEFAULT_COLUMN_WIDTH = 10;
-    public static final int ALIGNMENT_LEFT = 1;
-    public static final int ALIGNMENT_RIGHT = 2;
+    public static final int DEFAULT_COLUMN_WIDTH = 10;      /**< Constant to define column width */
+    public static final int ALIGNMENT_LEFT = 1;             /**< Constant to define left alignment */
+    public static final int ALIGNMENT_RIGHT = 2;            /**< Constant to define right alignment */
 
+    /**
+     * @brief Method for printing files
+     * @param file -> filename
+     */
     public static void printFile(String file) {
         BufferedReader reader = null;
         try {
@@ -38,6 +51,11 @@ public class ExpositoUtilities {
         }
     }
 
+    /**
+     * @brief Parser to simplify strings containing undesirable characters
+     * @param string -> String to be simplified
+     * @return String -> simplified string
+     */
     public static String simplifyString(String string) {
         string = string.replaceAll("\t", " ");
         for (int i = 0; i < 50; i++) {
@@ -47,7 +65,13 @@ public class ExpositoUtilities {
         return string;
     }
 
-    public static double[][] multiplyMatrices(double a[][], double b[][]) {
+    /**
+     * @brief Method to multiply 2 double matrix
+     * @param a -> Left matrix
+     * @param b -> Right matrix
+     * @return double[][] -> Matrix product result
+     */
+    public static double[][] multiplyMatrices(double[][] a, double[][] b) {
         if (a.length == 0) {
             return new double[0][0];
         }
@@ -68,6 +92,11 @@ public class ExpositoUtilities {
         return ans;
     }
 
+    /**
+     * @brief Method to get the format of a given string
+     * @param string -> string to be analyzed
+     * @return String -> result of the analysis
+     */
     public static String getFormat(String string) {
         if (!ExpositoUtilities.isInteger(string)) {
             if (ExpositoUtilities.isDouble(string)) {
@@ -78,6 +107,11 @@ public class ExpositoUtilities {
         return string;
     }
 
+    /**
+     * @brief Double to string formatter
+     * @param value -> value to be formatted
+     * @return String -> formatted result
+     */
     public static String getFormat(double value) {
         DecimalFormat decimalFormatter = new DecimalFormat("0.000");
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -86,6 +120,12 @@ public class ExpositoUtilities {
         return decimalFormatter.format(value);
     }
 
+    /**
+     * @brief Double to string formatter
+     * @param value -> value to be formatted
+     * @param zeros -> desired decimal precision
+     * @return String -> formatted result
+     */
     public static String getFormat(double value, int zeros) {
         StringBuilder format = new StringBuilder("0.");
         for (int i = 0; i < zeros; i++) {
@@ -98,10 +138,24 @@ public class ExpositoUtilities {
         return decimalFormatter.format(value);
     }
 
+    /**
+     * @brief Auxiliary method for getting a string format
+     * @param string -> string to be analyzed
+     * @param width -> width of the string
+     * @return String -> string format
+     */
     public static String getFormat(String string, int width) {
         return ExpositoUtilities.getFormat(string, width, ExpositoUtilities.ALIGNMENT_RIGHT);
     }
 
+    /**
+     *
+     * @brief Auxiliary method for getting a string format
+     * @param string -> string to be analyzed
+     * @param width -> width of the string
+     * @param alignment -> string alignment
+     * @return String -> string format
+     */
     public static String getFormat(String string, int width, int alignment) {
         String format;
         if (alignment == ExpositoUtilities.ALIGNMENT_LEFT) {
@@ -115,6 +169,12 @@ public class ExpositoUtilities {
         return String.format(format, (Object[]) data);
     }
 
+    /**
+     *
+     * @param strings -> strings to be analyzed
+     * @param width -> width of the string
+     * @return String -> string format
+     */
     public static String getFormat(ArrayList<String> strings, int width) {
         StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
@@ -127,6 +187,11 @@ public class ExpositoUtilities {
         return String.format(format.toString(), (Object[]) data);
     }
 
+    /**
+     *
+     * @param strings -> strings to be analyzed
+     * @return String -> formatted string
+     */
     public static String getFormat(ArrayList<Integer> strings) {
         StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
@@ -139,6 +204,12 @@ public class ExpositoUtilities {
         return String.format(format.toString(), (Object[]) data);
     }
 
+    /**
+     *
+     * @param strings -> strings to be analyzed
+     * @param width -> string width
+     * @return String -> string format
+     */
     public static String getFormat(String[] strings, int width) {
         int[] alignment = new int[strings.length];
         Arrays.fill(alignment, ExpositoUtilities.ALIGNMENT_RIGHT);
@@ -163,6 +234,11 @@ public class ExpositoUtilities {
         return result.toString();
     }
 
+    /**
+     *
+     * @param strings -> String of strings to be analyzed
+     * @return String -> string format
+     */
     public static String getFormat(String[] strings) {
         int[] alignment = new int[strings.length];
         Arrays.fill(alignment, ExpositoUtilities.ALIGNMENT_RIGHT);
@@ -171,12 +247,25 @@ public class ExpositoUtilities {
         return ExpositoUtilities.getFormat(strings, widths, alignment);
     }
 
+    /**
+     *
+     * @param strings -> String of strings to be analyzed
+     * @param width -> string width
+     * @return String -> string format
+     */
     public static String getFormat(String[] strings, int[] width) {
         int[] alignment = new int[strings.length];
         Arrays.fill(alignment, ExpositoUtilities.ALIGNMENT_RIGHT);
         return ExpositoUtilities.getFormat(strings, width, alignment);
     }
 
+    /**
+     *
+     * @param strings -> String of strings to be analyzed
+     * @param width -> string width
+     * @param alignment -> string alignment
+     * @return String -> string foramt
+     */
     public static String getFormat(String[] strings, int[] width, int[] alignment) {
         StringBuilder format = new StringBuilder();
         for (int i = 0; i < strings.length; i++) {
@@ -193,6 +282,11 @@ public class ExpositoUtilities {
         return String.format(format.toString(), (Object[]) data);
     }
 
+    /**
+     * @brief Check is a given number is integer
+     * @param str -> string containing the number
+     * @return boolean -> True of false
+     */
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
@@ -202,6 +296,11 @@ public class ExpositoUtilities {
         return false;
     }
 
+    /**
+     * @brief Check is a given number is double
+     * @param str -> string containing the number
+     * @return boolean -> True of false
+     */
     public static boolean isDouble(String str) {
         try {
             Double.parseDouble(str);
@@ -211,11 +310,15 @@ public class ExpositoUtilities {
         return false;
     }
 
+    /**
+     * @brief Check is a graph is acyclic
+     * @param distanceMatrix -> Matrix distances
+     * @return boolean -> True or false
+     */
     public static boolean isAcyclic(int[][] distanceMatrix) {
         int numRealTasks = distanceMatrix.length - 2;
         int node = 1;
-        boolean acyclic = true;
-        while (acyclic && node <= numRealTasks) {
+        while (node <= numRealTasks) {
             if (ExpositoUtilities.thereIsPath(distanceMatrix, node)) {
                 return false;
             }
@@ -224,6 +327,12 @@ public class ExpositoUtilities {
         return true;
     }
 
+    /**
+     * @brief Checks if a given node is reachable
+     * @param distanceMatrix -> Matrix distances
+     * @param node -> goal node
+     * @return boolean -> True or false
+     */
     public static boolean thereIsPath(int[][] distanceMatrix, int node) {
         HashSet<Integer> visits = new HashSet<>();
         HashSet<Integer> noVisits = new HashSet<>();

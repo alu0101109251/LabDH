@@ -1,5 +1,13 @@
 package top;
 
+/**
+ *
+ * @class mainTOPTW
+ * @brief Main program class
+ *
+ * @details This class loads the distance graphs contained in txt files and calculates the optimal path.
+ *
+ */
 public class mainTOPTW {
 
     public static void main(String[] args) {

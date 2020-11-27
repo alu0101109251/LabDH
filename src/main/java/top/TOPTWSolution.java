@@ -4,6 +4,12 @@ import java.util.Arrays;
 
 import es.ull.esit.utilities.ExpositoUtilities;
 
+/**
+ *
+ * @class TOPTWSolution
+ * @brief Class to represent the TOPTW problem solution
+ *
+ */
 public class TOPTWSolution {
     public static final int NO_INITIALIZED = -1;
     private final TOPTW problem;
